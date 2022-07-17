@@ -58,7 +58,7 @@
   - What is limit? Humans should directly process and inform the data so that the machine can understand it more easily(**Feature Engineering**).
   - For Example : Linear/Logistic Regression, k-Nearest Neighbors, Decision trees & Random forests, Support Vector Machine(SVM), Neural networks and so on.
 3) DL(Deep Learning) : It's a kind of ML method. To classify and guess the results, we teach the machine to process inputs through layers
-  - For Example : CNN, RNN, RBM... + AlphaGo by DeepMind
+  - For Example : CNN, RNN, LSTM, RBM... + AlphaGo by DeepMind
 
 ### **3. Type Machine learning**
 
@@ -68,11 +68,17 @@ There are **three methods** machine learning in large categories. It is unsuperv
  - Supervised learning : Learning a model from **labeled training data** to make predictions about future data that you have never seen before. Therefore, Supervised learning creates a function model that get outputs data with input data
    1) classification : Classification refers to the problem of classifying a given data according to a given category (label). ex) Yes or No, Apple or Grape
    2) regression : The problem of predicting continuous values based on the feature of the data
+  <center><img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/Regression_vs_Classification.jpg" width="70%" height="100%"></center><br>
+
  - Unsupervised learning : To predict results for new data by clustering data **without correct answer labels** among similar features. Therefore, it is possible to understand the **probability distribution** of the next data by the existing data.
    1) Clustering
    2) Feature Extraction (Visulization, Dimensionality reduction)
    3) Model Generation(ex dalle2)
+ 
+ <br>
  - Reinforcement learning : Optimized Method by continuous experience (Trial and Error) and evaluating (Rewards & Penalty)
+
+<br>
 
 ### 4. methodology
 <br>
@@ -85,6 +91,12 @@ There are **three methods** machine learning in large categories. It is unsuperv
 #### [3] Normalization & Standardization
 
 #### [4] Overfitting vs Underfitting
+
+#### [5] AI Modeling
+##### [5-1] generate model
+##### [5-2] model fit
+##### [5-3] predict x_test
+##### [5-4] validate results
 <br>
 
 <center><img src="https://miro.medium.com/max/1396/1*lARssDbZVTvk4S-Dk1g-eA.png" width="80%" height="100%"></center>
