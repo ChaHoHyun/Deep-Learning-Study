@@ -65,6 +65,8 @@
 There are **three methods** machine learning in large categories. It is unsupervised learning, supervised learning, and reinforcement learning
 <center><img src="https://miro.medium.com/max/2000/1*8wU0hfUY3UK_D8Y7tbIyFQ.png" width="90%" height="100%"></center>
 
+[Reference] [Machine Learning Types - Scikitlearn](https://scikit-learn.org/0.15/user_guide.html)
+
  - Supervised learning : Learning a model from **labeled training data** to make predictions about future data that you have never seen before. Therefore, Supervised learning creates a function model that get outputs data with input data
    1) classification : Classification refers to the problem of classifying a given data according to a given category (label). ex) Yes or No, Apple or Grape
    2) regression : The problem of predicting continuous values based on the feature of the data
