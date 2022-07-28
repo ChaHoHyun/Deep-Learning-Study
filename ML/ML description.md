@@ -8,13 +8,16 @@
 - [Derivation of LSE](https://datalabbit.tistory.com/49)
 - [Linear Classification](https://medium.com/elice/%EC%BB%B4%EA%B3%B5%EC%83%9D%EC%9D%98-ai-%EC%8A%A4%EC%BF%A8-%ED%95%84%EA%B8%B0-%EB%85%B8%ED%8A%B8-%E2%91%A1-%EC%84%A0%ED%98%95-%EB%B6%84%EB%A5%98-%EB%AA%A8%EB%8D%B8-linear-classification-model-93ba8c8fd249)
 - [Gaussian Mixture Model](https://angeloyeo.github.io/2021/02/08/GMM_and_EM.html)
+- [Data Scaling](https://dacon.io/codeshare/4526)
 
 ### Index
 
 1. [Linear Regression](#1-linear-regression)
 2. [KMeans](#2-kmeanskmm-k-means-clustering)
 3. [GMM](#3-gmm-gaussian-mixture-model)
-4. [PCA / LDA](#4-pca--lda)
+4. [PCA / LDA](#4-pca--lda)<br>
+4-3. [Scaler](#4-3-scaler)
+5. [KNN](#)
 
 ### 1. Linear Regression
 <br>
@@ -181,13 +184,68 @@ Python code file is [hear](./ml%20algorithm/GMM.ipynb)
 
 
 ### 4. PCA & LDA
+<br>
+
+#### 4-1. PCA
 
 <br>
 1) PCA(Principal Component Analysis) : How to find the most similar lower dimension data from higher dimension data(=dimension reduction)
- → Therefore, PCA is mainly used to model with new variables by combining existing variables when there are too many variables.
+ → Therefore, PCA is mainly used to model with new variables by combining existing variables when there are too many dimensions.<br>
 
-- A type of Unsupervised Learning
+- Dimension reduction techniques applied in Unsupervised Learning
 
 <br>
 <center><img src="https://img1.daumcdn.net/thumb/R1280x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/b34P/image/r-D5AEAOuZM_ZZPQZKPo6GRBilk.png" width="70%" height="80%"></center>
 <center>[Description of PCA]</center>
+
+  1-1) Why reduce dimensions(PCA)?<br>
+  -  Feature Selection : It is determined through the correlation coefficient value, and unnecessary features are discarded.
+  - Feature Extraction 
+  - Feature Generation : New features are created from the data and the purpose of machine learning algorithm.
+
+  1-2) Caution
+   - Since PCA uses a covariance matrix, it requires a process of **Scaler** each feature data with different units and distributions.
+   - n_components == min(n_samples, n_features)
+   - Usually, the accuracy is less than before. because the number of data decreases due to dimensions shrinking.
+
+#### 4-2. LDA
+
+1) LDA (Linear Discriminant Analysis) : Dimension reduction techniques similar to PCA
+
+- Dimension reduction techniques applied in Supervised Learning
+- Finding the axis that maximizes class(Label) separation
+
+<br>
+<center><img src="https://nirpyresearch.com/wp-content/uploads/2018/11/PCAvsLDA-1024x467.png" width="80%" height="80%"></center>
+<center>[Comparision PCA vs LDA]</center>
+
+##### [4-2-1] Example Code
+<br>
+
+PCA + LDA's Python code file is [hear](./ml%20algorithm/PCA_LDA.ipynb)
+
+<br>
+
+#### 4-3. Scaler
+<br>
+
+- One of Data-Preprocessing
+
+- Each feature has its own range of data values. so if the range difference is large, it can converge to zero or diverge indefinitely when learning the model with the data.
+   - Therefore, scaling allows you to adjust the data distribution or range of all features equally.
+
+##### [4-3-1] Example Code
+
+<br>
+
+Python code file is [hear](./ml%20algorithm/Scaler.ipynb)
+
+<br>
+
+### 5. KNN (K-Nearest Neighbors)
+
+Finding the 'nearest neighbor' is the model's prediction method.
+
+- A type of Supervised Learning
+- Need to apply Scaler Since it is judged on the basis of distance of each data.
+- How to set k-values?
