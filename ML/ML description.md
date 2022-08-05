@@ -5,10 +5,12 @@
 
 ### Reference
 
+- [Scikit-learn Official Document](https://scikit-learn.org/stable/)
 - [Derivation of LSE](https://datalabbit.tistory.com/49)
 - [Linear Classification](https://medium.com/elice/%EC%BB%B4%EA%B3%B5%EC%83%9D%EC%9D%98-ai-%EC%8A%A4%EC%BF%A8-%ED%95%84%EA%B8%B0-%EB%85%B8%ED%8A%B8-%E2%91%A1-%EC%84%A0%ED%98%95-%EB%B6%84%EB%A5%98-%EB%AA%A8%EB%8D%B8-linear-classification-model-93ba8c8fd249)
 - [Gaussian Mixture Model](https://angeloyeo.github.io/2021/02/08/GMM_and_EM.html)
 - [Data Scaling](https://dacon.io/codeshare/4526)
+- [K-Nearest Neighbor](https://dacon.io/codeshare/4526)
 
 ### Index
 
@@ -16,8 +18,9 @@
 2. [KMeans](#2-kmeanskmm-k-means-clustering)
 3. [GMM](#3-gmm-gaussian-mixture-model)
 4. [PCA / LDA](#4-pca--lda)<br>
-4-3. [Scaler](#4-3-scaler)
-5. [KNN](#)
+   4-3. [Scaler](#4-3-scaler)
+5. [KNN](#5-knn-k-nearest-neighbors)<br>
+   5-2. [K-fold Cross Validation](#5-2-k-fold-cross-validation)
 
 ### 1. Linear Regression
 <br>
@@ -71,7 +74,14 @@ Python code file is [hear](./ml%20algorithm/linear_regression.ipynb)
 
 - A type of Unsupervised Learning (Non-Label)
 
- 1-1) Concept : If we can assume that there is a <u>**linear relationship**</u> between X (input) and y (Lable), we can find the weight and bias of the **linear** regression relationship. ↔ **Logistic Regression**
+ 1-1) Concept : Clustering according to the number(k) of each data group
+
+  ※ <u>**Scaler Required**</u>
+
+<br>
+<center><img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_cluster_comparison_001.png" width="100%" height="80%"></center>
+<center>[Example of Clustering]</center>
+<br>
 
  1-2) Example<br>
      - Recommendation Engine: Tie up similar products to personalize the user experience <br>
@@ -244,8 +254,35 @@ Python code file is [hear](./ml%20algorithm/Scaler.ipynb)
 
 ### 5. KNN (K-Nearest Neighbors)
 
-Finding the 'nearest neighbor' is the model's prediction method.
+1-1) Concept
+
+Finding the 'nearest neighbor' is the model's prediction method (Classification).
 
 - A type of Supervised Learning
 - Need to apply Scaler Since it is judged on the basis of distance of each data.
 - How to set k-values?
+
+ 1-2) Theory 
+1. Calculate the distance between the new instance(Data to be predicted) from the known data
+2. Count the classes of the K Nearest Neighbors
+3. Classify the instance based on the majority of classes obtained in the previous step 
+4. Repeat steps 2. and 3. for all data(new instance)
+
+<br>
+<center><img src="https://s3.amazonaws.com/codecademy-content/courses/learn-knn/nearest_neighbor.gif" width="80%" height="80%"></center>
+<center>[Process of KNN]</center>
+<br>
+
+#### [5-1] Example code
+
+Python code file is [hear](./ml%20algorithm/)
+
+- how to build KMeans model
+- how to set the K value? [Elbow method / Silhouette score]
+
+#### [5-2] K-fold Cross Validation
+
+https://www.section.io/engineering-education/how-to-implement-k-fold-cross-validation/
+
+https://dlearner.tistory.com/20
+
