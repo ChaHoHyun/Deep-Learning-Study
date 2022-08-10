@@ -1,7 +1,7 @@
 # Study of Machine-Learning
 
 > **AUTHOR** : HoHyun Cha (ghgus2006@naver.com)  
-> **DATE** : '22.7/10
+> **DATE** : '22.8/8
 
 ### Reference
 
@@ -20,7 +20,8 @@
 4. [PCA / LDA](#4-pca--lda)<br>
    4-3. [Scaler](#4-3-scaler)
 5. [KNN](#5-knn-k-nearest-neighbors)<br>
-   5-2. [K-fold Cross Validation](#5-2-k-fold-cross-validation)
+   5-1. [Cross Validation](#5-1-cross-validation)
+   5-2. [Grid Search](#5-2-grid-search)
 
 ### 1. Linear Regression
 <br>
@@ -273,16 +274,59 @@ Finding the 'nearest neighbor' is the model's prediction method (Classification)
 <center>[Process of KNN]</center>
 <br>
 
-#### [5-1] Example code
+#### [5-1] Cross Validation
 
-Python code file is [hear](./ml%20algorithm/)
+- The most common strategy for judging the performance of a ML model is to divide the data-set into a training set and a validation set (at a rate of 70-80%) => **Holdout method**<br>
+    - example : Get performance Split 5 only (below figure1)
+    - problem : Datasets(not split5) might be possible to have a poor performance. So, we couldn't decide ML model by Holdout method score.
+
+<br>
+
+##### [5-1-1] K-fold Cross Validation
+<br>
+ - We can handle the problem mentioned above with K-fold cross validation.The dataset is divided into K pieces and the ML performance evaluation of k times is conducted. (The figure below shows K-fold cross validation with k value of 5)<br>
+ - By evaluating all Train-Set, we can generalize the performance of the model.
+
+<br>
+<center><img src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" width="80%" height="80%"></center>
+<center>[figure1] simple diagram of K-fold Cross Validation</center>
+<br>
+
+- Conclusion : We have to divide the data-set into three types: <u>**train, validation, and test**</u>.
+
+<br>
+
+#### [5-2] Grid Search
+<br>
+ Grid-search provides the best parameters by sequentially entering hyperparameters used in classification or regression algorithms, learning and measuring. 
+
+<br>
+
+##### [5-2-1] GridSearchCV
+
+ - A <u>total</u> search for the parameter values specified for the estimator
+
+##### [5-2-2] RandomizedSearchCV
+
+ - <u>Randomized</u> search for hyper parameters
+ - **Unlike GridSearchCV**, not all parameter values are attempted, but a fixed number of parameter settings are sampled from the specified distribution. The number of parameter settings attempted is provided by ```n_iter```.
+
+<br>
+<center><img src="https://www.researchgate.net/profile/Karl-Ezra-Pilario/publication/341691661/figure/fig2/AS:896464364507139@1590745168758/Comparison-between-a-grid-search-and-b-random-search-for-hyper-parameter-tuning-The.png" width="80%" height="80%"></center>
+<center>[Diagram of Grid Search]</center>
+<br>
+
+#### [5-3] Example code
+
+Python code file is [hear](./ml%20algorithm/KNN_Cross_Validation_Grid_Search.ipynb)
 
 - how to build KMeans model
 - how to set the K value? [Elbow method / Silhouette score]
 
-#### [5-2] K-fold Cross Validation
+<br>
 
-https://www.section.io/engineering-education/how-to-implement-k-fold-cross-validation/
+### 6. NBC
 
-https://dlearner.tistory.com/20
+### 7. DT (K-Nearest Neighbors)
 
+### 8. RandomForest
