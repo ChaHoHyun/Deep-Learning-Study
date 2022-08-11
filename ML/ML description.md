@@ -11,6 +11,7 @@
 - [Gaussian Mixture Model](https://angeloyeo.github.io/2021/02/08/GMM_and_EM.html)
 - [Data Scaling](https://dacon.io/codeshare/4526)
 - [K-Nearest Neighbor](https://dacon.io/codeshare/4526)
+- [What is Ensemble Learning](https://www.projectpro.io/article/a-comprehensive-guide-to-ensemble-learning-methods/432#toc-3)
 
 ### Index
 
@@ -20,8 +21,24 @@
 4. [PCA / LDA](#4-pca--lda)<br>
    4-3. [Scaler](#4-3-scaler)
 5. [KNN](#5-knn-k-nearest-neighbors)<br>
-   5-1. [Cross Validation](#5-1-cross-validation)
+   5-1. [Cross Validation](#5-1-cross-validation)<br>
    5-2. [Grid Search](#5-2-grid-search)
+7. [DecisionTreeClassifier](#7-decisiontreeclassifier)
+   7-1. [Ensemble Learning](#7-1-ensemble-learning)<br>
+   7-2. [Bagging Classifier](#7-2-bagging-classifier)<br>
+   7-3. [Voting Classifier](#7-3-voting-classifier)
+   7-4. [Boosting](#7-4-boosting)
+
+<br>
+
+### Choosing Model
+
+<br>
+
+<center><img src="https://scikit-learn.org/stable/_static/ml_map.png" width="90%" height="100%"></center>
+
+[[reference] Choosing the right estimator - Sklearn](https://scikit-learn.org/stable/tutorial/machine_learning_map/)
+<br><br>
 
 ### 1. Linear Regression
 <br>
@@ -255,7 +272,9 @@ Python code file is [hear](./ml%20algorithm/Scaler.ipynb)
 
 ### 5. KNN (K-Nearest Neighbors)
 
-1-1) Concept
+<br>
+
+1) Concept
 
 Finding the 'nearest neighbor' is the model's prediction method (Classification).
 
@@ -263,11 +282,14 @@ Finding the 'nearest neighbor' is the model's prediction method (Classification)
 - Need to apply Scaler Since it is judged on the basis of distance of each data.
 - How to set k-values?
 
- 1-2) Theory 
-1. Calculate the distance between the new instance(Data to be predicted) from the known data
-2. Count the classes of the K Nearest Neighbors
-3. Classify the instance based on the majority of classes obtained in the previous step 
-4. Repeat steps 2. and 3. for all data(new instance)
+<br>
+
+2) Theory 
+
+   1. Calculate the distance between the new instance(Data to be predicted) from the known data
+   2. Count the classes of the K Nearest Neighbors
+   3. Classify the instance based on the majority of classes obtained in the previous step 
+   4. Repeat steps 2. and 3. for all data(new instance)
 
 <br>
 <center><img src="https://s3.amazonaws.com/codecademy-content/courses/learn-knn/nearest_neighbor.gif" width="80%" height="80%"></center>
@@ -309,7 +331,7 @@ Finding the 'nearest neighbor' is the model's prediction method (Classification)
 ##### [5-2-2] RandomizedSearchCV
 
  - <u>Randomized</u> search for hyper parameters
- - **Unlike GridSearchCV**, not all parameter values are attempted, but a fixed number of parameter settings are sampled from the specified distribution. The number of parameter settings attempted is provided by ```n_iter```.
+ - **Unlike GridSearchCV**, not all parameter values are attempted, but a fixed number of parameter settings are sampled from the specified distribution. The number of parameter settings attempted is provided by `n_iter`.
 
 <br>
 <center><img src="https://www.researchgate.net/profile/Karl-Ezra-Pilario/publication/341691661/figure/fig2/AS:896464364507139@1590745168758/Comparison-between-a-grid-search-and-b-random-search-for-hyper-parameter-tuning-The.png" width="80%" height="80%"></center>
@@ -327,6 +349,106 @@ Python code file is [hear](./ml%20algorithm/KNN_Cross_Validation_Grid_Search.ipy
 
 ### 6. NBC
 
-### 7. DT (K-Nearest Neighbors)
+### 7. DecisionTreeClassifier
+
+<br>
+
+- A type of Supervised Learning
+- Express diagram of DecisionTree by `dtreeviz/graphviz` and so on.<br>
+   - [[URL] Decision-Tree Visualization](https://mljar.com/blog/visualize-decision-tree/)
+- Easy to be **overfitting**
+
+<br>
+
+> class sklearn.tree.DecisionTreeClassifier(*, criterion='gini', splitter='best', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, min_impurity_decrease=0.0, class_weight=None, ccp_alpha=0.0)
+
+- criterion : 분할 품질을 측정하는 기능 (default : gini)
+- max_depth : 트리의 최대 깊이 (값이 클수록 모델의 복잡도가 올라간다.)
+- max_features : 각 노드에서 분할에 사용할 특징의 최대 수
+- max_leaf_nodes : 리프 노드의 최대수
+
+   [[Reference] DecisionTreeClassifier Hyperparameter](https://inuplace.tistory.com/548)
+
+<br>
+
+#### [7-1] Ensemble Learning
+
+<br>
+
+Ensemble Learning is the process where multiple machine learning models are combined to get better results. The core idea is that the result obtained from a combination of models can be more accurate than any individual machine learning model.
+
+- Why we use Ensemble model? **Because it's powerful!** <br>
+  Enemble shows better performance by merging each ML model that has lower performance.
+
+<br>
+
+#### [7-2] Bagging Classifier
+
+<br>
+
+- Bagging : Bootstrap Aggregation
+   - sampling : To extract N samples with **restore extraction** N times
+- Representative model
+   - RandomForest
+
+ - Steps<br>
+
+   1. Create multiple data instances by dividing train data. (bootstrapping)
+
+   2. Create multiple models from this bootstrap data and multiple model outputs. Aggregate the results of the model and obtain the final results.
+
+<br>
+<center><img src="https://dezyre.gumlet.io/images/A+Comprehensive+Guide+to+Ensemble+Learning+Methods/Ensemble+learning+Bagging.png?w=900&dpr=1.3" width="70%" height="80%"></center>
+<center>Diagram of Bagging Classifier</center>
+<br>
+
+#### [7-3] Voting Classifier
+<br>
+Voting Classifiers refers to the "multiple classification", which can be divided in two methods: <u>Hard Voting Classifier and Soft Voting Classifier</u>
+
+<br>
+
+   - Hard Voting Classifier : Create multiple ML models and compare their performance about results. At this time, the result of the classifier is aggregated and the class that gets the most votes is determined as the final predicted value is called the Hard Voting Classifier. → **Majority  Vote**
+
+<br>
+<center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile7.uf.tistory.com%2Fimage%2F997418435B42CEB012164F" width="70%" height="80%"></center>
+<center>[figure2] Diagram of Hard Voting Classifier</center>
+<br>
+
+   ※ Conclusion : As shown above [figure2], the **final result**(prediction) of the Hard Voting Classifier will be <u>**1**</u> because there are three models that predict the final result as 1 and only one model that predict the final result as 2.
+ 
+<br>
+
+   - Soft Voting Classifier : Use when all classifiers used in an ensemble can predict the probability of a class. The prediction for each classifier is averaged to predict the class with the highest probability. → **Weighted Vote**
+
+<br>
+<center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile23.uf.tistory.com%2Fimage%2F9922564D5B42D06106D981" width="50%" height="80%"></center>
+<center>[figure3] Diagram of Soft Voting Classifier</center>
+<br>
+
+$p(i=1 | x) = \frac{(0.9 + 0.8 + 0.3 + 0.4)}4 = 0.6$
+$p(i=2 | x) = \frac{(0.1 + 0.2 + 0.7 + 0.6)}4 = 0.4$
+
+<br>
+
+  ※ Conclusion : As shown above [figure2], the class with a high mean for the prediction probability (**Label 1**) is set as the final prediction class.
+
+<br>
+
+#### [7-4] Boosting
+
+- To learn by giving more weight to misclassified samples
+- Although **Bagging** is independent of individual models (but not completely with the same base estimator) ↔ **Boosting** is a sequential model
+- Representative model
+   - Adaboost
+   - Gradient boosting
+      - xgboost
+      - lightGBM
+      - Catboost
+<br>
+
+#### [7-5] Example code
+
+Python code file is [hear](./ml%20algorithm/DecisionTree.ipynb)
 
 ### 8. RandomForest
