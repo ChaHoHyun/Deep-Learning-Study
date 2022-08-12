@@ -23,10 +23,10 @@
 5. [KNN](#5-knn-k-nearest-neighbors)<br>
    5-1. [Cross Validation](#5-1-cross-validation)<br>
    5-2. [Grid Search](#5-2-grid-search)
-7. [DecisionTreeClassifier](#7-decisiontreeclassifier)
+7. [DecisionTreeClassifier](#7-decisiontreeclassifier)<br>
    7-1. [Ensemble Learning](#7-1-ensemble-learning)<br>
    7-2. [Bagging Classifier](#7-2-bagging-classifier)<br>
-   7-3. [Voting Classifier](#7-3-voting-classifier)
+   7-3. [Voting Classifier](#7-3-voting-classifier)<br>
    7-4. [Boosting](#7-4-boosting)
 
 <br>
@@ -356,7 +356,13 @@ Python code file is [hear](./ml%20algorithm/KNN_Cross_Validation_Grid_Search.ipy
 - A type of Supervised Learning
 - Express diagram of DecisionTree by `dtreeviz/graphviz` and so on.<br>
    - [[URL] Decision-Tree Visualization](https://mljar.com/blog/visualize-decision-tree/)
-- Easy to be **overfitting**
+<br>
+<center>
+
+   ![image](../images/tree_visualization_r1.png)
+</center>
+
+- Easy to be **overfitting** ↔ RandomForest(DT + Bagging)
 
 <br>
 
@@ -386,14 +392,17 @@ Ensemble Learning is the process where multiple machine learning models are comb
 
 <br>
 
-- Bagging : Bootstrap Aggregation
-   - sampling : To extract N samples with **restore extraction** N times
+- <u>A single ML model</u> learns to make individual predictions on a data-set sampled by **bootstrapping** and selects the final prediction result through voting
+- Bagging : Bootstrap & Aggregation
+   - Bootstrap : To extract N samples with **restore extraction** N times ↔ K-fold
+   - Aggregation : Vote individual predictions (result : **value average**) to select final prediction results
 - Representative model
-   - RandomForest
-
+   - **RandomForest**
+   
+   <br>
  - Steps<br>
 
-   1. Create multiple data instances by dividing train data. (bootstrapping)
+   1. Create multiple data instances by dividing train data (bootstrapping)
 
    2. Create multiple models from this bootstrap data and multiple model outputs. Aggregate the results of the model and obtain the final results.
 
@@ -402,9 +411,25 @@ Ensemble Learning is the process where multiple machine learning models are comb
 <center>Diagram of Bagging Classifier</center>
 <br>
 
+##### [7-2-1] Random Forest
+<br>
+
+- Random Forest : Ensemble(Bagging type) of DecisionTree<br>
+- Sampling both train data and feature → Lower **Overfitting**<br>
+- Take large number of decision trees (`n_estimators : int`, default=100)
+
+<br>
+<center><img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Random_forest_diagram_complete.png" width="70%" height="80%"></center>
+<center>Diagram of Random Forest</center>
+<br>
+
+<br>
+
 #### [7-3] Voting Classifier
 <br>
-Voting Classifiers refers to the "multiple classification", which can be divided in two methods: <u>Hard Voting Classifier and Soft Voting Classifier</u>
+- <u>Multiple different ML model</u> learn about the same data-set and vote to select the final prediction result with prediction results<br>
+- Voting Classifiers refers to the "multiple classification", 
+which can be divided in two methods : <u>Hard Voting Classifier and Soft Voting Classifier</u>
 
 <br>
 
@@ -437,14 +462,14 @@ $p(i=2 | x) = \frac{(0.1 + 0.2 + 0.7 + 0.6)}4 = 0.4$
 
 #### [7-4] Boosting
 
-- To learn by giving more weight to misclassified samples
-- Although **Bagging** is independent of individual models (but not completely with the same base estimator) ↔ **Boosting** is a sequential model
+- To learn by **more weighting** <u>the next model</u> for incorrectly classified result values in the previous model
+- Although **Bagging** is independent of individual models (but not completely with the same base estimator) ↔ **Boosting** is a <u>sequential Multiple classifier model</u>
 - Representative model
    - Adaboost
    - Gradient boosting
-      - xgboost
-      - lightGBM
-      - Catboost
+      - XGBoost (https://velog.io/@dbj2000/ML)
+      - LightGBM (more quick speed than XGBoost)
+      - GBM (Gradient Boost Machine)
 <br>
 
 #### [7-5] Example code
