@@ -12,6 +12,7 @@
 - [Data Scaling](https://dacon.io/codeshare/4526)
 - [K-Nearest Neighbor](https://dacon.io/codeshare/4526)
 - [What is Ensemble Learning](https://www.projectpro.io/article/a-comprehensive-guide-to-ensemble-learning-methods/432#toc-3)
+- [Boosting - GBM & XGBoost & LightGBM](https://velog.io/@dbj2000/ML)
 
 ### Index
 
@@ -462,7 +463,7 @@ $p(i=2 | x) = \frac{(0.1 + 0.2 + 0.7 + 0.6)}4 = 0.4$
 
 #### [7-4] Boosting
 
-- To learn by **more weighting** <u>the next model</u> for incorrectly classified result values in the previous model
+- To learn by **more weighting** <u>the next model</u> for incorrectly classified result values in the previous model (weak learner)
 - Although **Bagging** is independent of individual models (but not completely with the same base estimator) ↔ **Boosting** is a <u>sequential Multiple classifier model</u>
 - Representative model
    - Adaboost
@@ -470,6 +471,37 @@ $p(i=2 | x) = \frac{(0.1 + 0.2 + 0.7 + 0.6)}4 = 0.4$
       - XGBoost (https://velog.io/@dbj2000/ML)
       - LightGBM (more quick speed than XGBoost)
       - GBM (Gradient Boost Machine)
+<br>
+
+##### [7-4-1] GBM
+<br>
+
+- GBM : Gradient Boosting Machine
+- GBM uses a **gradient descent method** for weight updates
+- Hyperparameter Tunning
+   - n_estimators, max_depth, Max_features : Number of trees
+   - loss : Select Cost Function {‘log_loss’, ‘deviance’, ‘exponential’}
+   - learning_rate : The coefficient applied by learner to correct the error values sequentially
+   - subsample : Proportion of data used for learning
+
+<br>
+
+##### [7-4-2] XGBoost
+<br>
+
+- XGBoost : eXtra Gradient Boost → Tree-based ensemble learning.
+- Advantage
+
+<center>
+
+|List|Content|
+|:---:|:---:|
+|Good Performance|Typically excellent predicton at classification and regression|
+|Quick running time than GBM|Parallel execution and many functions ↔ Gradient Descent|
+|Regulation in Overfitting|A function|
+
+</center>
+
 <br>
 
 #### [7-5] Example code
