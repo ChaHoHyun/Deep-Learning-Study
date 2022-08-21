@@ -44,7 +44,7 @@ train = pd.read_csv("file path/train.csv")
 test = pd.read_csv("file path/test.csv")
 
 print(train.shape, test.shape)
-print(train.info, test.info)
+print(train.info(), test.info())
 print(train.isnull().sum(), test.isnull().sum())
 ```
 <br>
@@ -56,12 +56,11 @@ print(train.isnull().sum(), test.isnull().sum())
 # visualization
 train.loc[train[col_name] == 1].plot(kind='kde') # Same with `sns.distplot()`
 train.loc[train[col_name] == 2].plot(kind='kde')
-df.plot(kind='bar', stacked=True)
+df.plot(kind='bar', stacked=True, figsize=(10,8))
 
 # set plot
 plt.xlim([0, 80]) # change x axis length of graph
 plt.xticks(rotation=0) # change xticks angle
-plt.figure(figsize = (12,6)) # change figure size
 
 dataset = [train, test]
 
@@ -74,6 +73,11 @@ for data in dataset:
     data.dropna([column3, column4], inplace=True)
 
     data[column5].map(column5_mapping)
+
+    data.drop(columns=['cols_name1', 'cols_name2'], axis=1, inplace=True)
+
+dummies = pd.get_dummies(train['cols_name'], prefix='cols_name')
+train = pd.concat([train, dummies], axis=1)
 ```
 <br>
 
@@ -84,17 +88,17 @@ for data in dataset:
 k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
 model_list = [DT(), KNN(n_neighbors=5, n_jobs=-1), RFC(), GBM(), SVC()]
 
-for model in clf_list:
+for model in model_list:
     score = cross_val_score(model, x_train, y_train, 
                             cv=k_fold, n_jobs=-1, scoring='accuracy').mean()
     print(f"{str(clf)} Score : {np.round(score,2)}")
 
 clf = RFC(n_jobs=-1, random_state=0)
-clf.fit(train, target)
+clf.fit(x_train, y_train)
 
 test = test.drop(columns='PassengerId')
 
-result = clf.predict(test)
+result = clf.predict(x_test)
 ```
 <br>
 
