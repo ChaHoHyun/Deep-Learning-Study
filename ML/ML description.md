@@ -13,7 +13,7 @@
 - [K-Nearest Neighbor](https://dacon.io/codeshare/4526)
 - [What is Ensemble Learning](https://www.projectpro.io/article/a-comprehensive-guide-to-ensemble-learning-methods/432#toc-3)
 - [Boosting - GBM & XGBoost & LightGBM](https://velog.io/@dbj2000/ML)
-- [kaggle - Titanic](http://sungwookle.site/research/2106211010/)
+- [kaggle Titanic Example - Sungwookle](http://sungwookle.site/research/2106211010/)
 
 ### Index
 

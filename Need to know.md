@@ -7,6 +7,6 @@
 
 ## [1] PINN?
 
-(Physics-Informed Neural Network)
+[Physics-Informed Neural Network](https://www.youtube.com/watch?v=vFghJ0r39K4&t=50)
 
 ## [2] Explainable AI?

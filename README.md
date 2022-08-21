@@ -19,3 +19,4 @@
   * [Matplotlib](./backgrounds/Lab03.Matplotlib.ipynb)
 
 - The description of ML `md` is [here](./ML/ML%20description.md).
+   - [ML Modelin Manual]()
