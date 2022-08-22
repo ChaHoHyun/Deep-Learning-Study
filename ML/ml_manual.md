@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set()
 sns.set_style("whitegrid")
-plt.rc("figure", figsize=(12,10))
+# plt.rc("figure", figsize=(12,10))
 
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
@@ -52,8 +52,65 @@ print(train.isnull().sum(), test.isnull().sum())
 ### EDA & Visualization & Feature Engineering
 <br>
 
+- heat map
+
+```python
+cols = list(train.columns)
+corr = train[cols].corr()
+mask = np.array(corr)
+
+plt.figure(figsize=(20,20))
+sns.heatmap(corr, vmax=0.8, square=True, annot=True, cmap="coolwarm")
+```
+- Subplot
+
+```python
+plt.subplots(figsize=(20,12))
+
+col_list = ['year', 'month', 'day', 'hour']
+
+for i in range(len(col_list)):
+    plt.subplot(2,2,i+1)
+    
+    col_uni = train[col_list[i]].unique()
+    colors = sns.color_palette('hls',len(col_uni))
+    
+    train.groupby(col_list[i])['count'].mean().plot(kind='bar', color=colors)
+    plt.xlabel(col_list[i], fontsize=20, weight='bold')
+    plt.ylabel('Count', fontsize=20, weight='bold')
+    plt.xticks(fontsize=14, rotation=0)
+```
+=
+```python
+figure, ((ax1, ax2),(ax3,ax4)) = plt.subplots(nrows=2, ncols=2, figsize=(20,12))
+
+colors = sns.color_palette('hls',len(train['month'].unique()))
+
+train.groupby('year')['count'].mean().plot(kind='bar', ax=ax1)
+ax1.set_xlabel('year', fontsize=20, weight='bold')
+ax1.set_ylabel('Count', fontsize=20, weight='bold')
+ax1.set_xticklabels(train['year'].unique(),fontsize=14, rotation=0)
+
+train.groupby('month')['count'].mean().plot(kind='bar', ax=ax2, color=colors)
+ax2.set_xlabel('month', fontsize=20, weight='bold')
+ax2.set_ylabel('Count', fontsize=20, weight='bold')
+ax2.set_xticklabels(train['month'].unique(),rotation=0)
+
+train.groupby('day')['count'].mean().plot(kind='bar', ax=ax3)
+ax3.set_xlabel('day', fontsize=20, weight='bold')
+ax3.set_ylabel('Count', fontsize=20, weight='bold')
+ax3.set_xticklabels(train['day'].unique(),fontsize=14, rotation=0)
+
+train.groupby('hour')['count'].mean().plot(kind='bar', ax=ax4)
+ax4.set_xlabel('hour', fontsize=20, weight='bold')
+ax4.set_ylabel('Count', fontsize=20, weight='bold')
+ax4.set_xticklabels(train['hour'].unique(),fontsize=14, rotation=0)
+```
+
 ```python
 # visualization
+figure, ((ax1, ax2, ax3),(ax4,ax5,ax6)) = plt.subplots(nrows=2, ncols=3)
+
 train.loc[train[col_name] == 1].plot(kind='kde') # Same with `sns.distplot()`
 train.loc[train[col_name] == 2].plot(kind='kde')
 df.plot(kind='bar', stacked=True, figsize=(10,8))
@@ -61,6 +118,7 @@ df.plot(kind='bar', stacked=True, figsize=(10,8))
 # set plot
 plt.xlim([0, 80]) # change x axis length of graph
 plt.xticks(rotation=0) # change xticks angle
+plt.xlabel('ylabel', fontsize=20, weight='bold')
 
 dataset = [train, test]
 
