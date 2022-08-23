@@ -3,6 +3,17 @@
 > **AUTHOR** : HoHyun Cha (ghgus2006@naver.com)  
 > **DATE** : '22.8/21
 
+<br>
+
+### Index
+
+1. [Import Library](#import-machine-learning-library)
+2. [Collect CSV file](#collecting-csv-file)
+3. [EDA & Viualization & Feature Engineering](#eda)
+4. [ML Modeling](#ml-modeling)
+
+<br>
+
 ### Introduction
 
 <br>
@@ -49,7 +60,18 @@ print(train.isnull().sum(), test.isnull().sum())
 ```
 <br>
 
-### EDA & Visualization & Feature Engineering
+### EDA
+<br>
+
+- Explore Data
+
+```python
+df['col_name'].isna().sum()
+df['col_name'].value_counts()
+```
+<br>
+
+#### Visualization
 <br>
 
 - heat map
@@ -90,27 +112,10 @@ train.groupby('year')['count'].mean().plot(kind='bar', ax=ax1)
 ax1.set_xlabel('year', fontsize=20, weight='bold')
 ax1.set_ylabel('Count', fontsize=20, weight='bold')
 ax1.set_xticklabels(train['year'].unique(),fontsize=14, rotation=0)
-
-train.groupby('month')['count'].mean().plot(kind='bar', ax=ax2, color=colors)
-ax2.set_xlabel('month', fontsize=20, weight='bold')
-ax2.set_ylabel('Count', fontsize=20, weight='bold')
-ax2.set_xticklabels(train['month'].unique(),rotation=0)
-
-train.groupby('day')['count'].mean().plot(kind='bar', ax=ax3)
-ax3.set_xlabel('day', fontsize=20, weight='bold')
-ax3.set_ylabel('Count', fontsize=20, weight='bold')
-ax3.set_xticklabels(train['day'].unique(),fontsize=14, rotation=0)
-
-train.groupby('hour')['count'].mean().plot(kind='bar', ax=ax4)
-ax4.set_xlabel('hour', fontsize=20, weight='bold')
-ax4.set_ylabel('Count', fontsize=20, weight='bold')
-ax4.set_xticklabels(train['hour'].unique(),fontsize=14, rotation=0)
+# Month, Day, Hour is Same
 ```
-
+- Figure Setting
 ```python
-# visualization
-figure, ((ax1, ax2, ax3),(ax4,ax5,ax6)) = plt.subplots(nrows=2, ncols=3)
-
 train.loc[train[col_name] == 1].plot(kind='kde') # Same with `sns.distplot()`
 train.loc[train[col_name] == 2].plot(kind='kde')
 df.plot(kind='bar', stacked=True, figsize=(10,8))
@@ -119,7 +124,21 @@ df.plot(kind='bar', stacked=True, figsize=(10,8))
 plt.xlim([0, 80]) # change x axis length of graph
 plt.xticks(rotation=0) # change xticks angle
 plt.xlabel('ylabel', fontsize=20, weight='bold')
+```
+<br>
 
+#### Feature Engineering
+<br>
+
+- apply
+```python
+def make_year_month(df):
+    return df.strftime("%Y%m")
+
+train['datetime'].apply(make_year_month)
+```
+- mapping / Drop / get_dummies + concat
+```python
 dataset = [train, test]
 
 column5_mapping = {"feature1" : 0,
