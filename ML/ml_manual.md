@@ -9,7 +9,8 @@
 
 1. [Import Library](#import-machine-learning-library)
 2. [Collect CSV file](#collecting-csv-file)
-3. [EDA & Viualization & Feature Engineering](#eda)
+3. [EDA & Viualization & Feature Engineering](#eda)<br>
+    3-1. [[URL] Matplotlib Manual](https://wikidocs.net/159830)
 4. [ML Modeling](#ml-modeling)
 
 <br>
@@ -106,7 +107,7 @@ for i in range(len(col_list)):
 ```python
 figure, ((ax1, ax2),(ax3,ax4)) = plt.subplots(nrows=2, ncols=2, figsize=(20,12))
 
-colors = sns.color_palette('hls',len(train['month'].unique()))
+colors = sns.color_palette('hls',len(train['year'].unique()))
 
 train.groupby('year')['count'].mean().plot(kind='bar', ax=ax1)
 ax1.set_xlabel('year', fontsize=20, weight='bold')
@@ -118,7 +119,12 @@ ax1.set_xticklabels(train['year'].unique(),fontsize=14, rotation=0)
 ```python
 train.loc[train[col_name] == 1].plot(kind='kde') # Same with `sns.distplot()`
 train.loc[train[col_name] == 2].plot(kind='kde')
+# Histogram : Same with 'kde
+train['windspeed_enc'].plot.hist(bins=20,alpha=0.5,color=['green','blue'], figsize=(10,8))
+
 df.plot(kind='bar', stacked=True, figsize=(10,8))
+
+df.plot.scatter(x='temp', y='atemp', figsize=(10,8),s=10, colormap='hot')
 
 # set plot
 plt.xlim([0, 80]) # change x axis length of graph
@@ -137,7 +143,7 @@ def make_year_month(df):
 
 train['datetime'].apply(make_year_month)
 ```
-- mapping / Drop / get_dummies + concat
+- transform / mapping / Drop / get_dummies + concat
 ```python
 dataset = [train, test]
 
@@ -155,6 +161,8 @@ for data in dataset:
 
 dummies = pd.get_dummies(train['cols_name'], prefix='cols_name')
 train = pd.concat([train, dummies], axis=1)
+
+train[train.columns.difference(['casual', 'registered','count'])]
 ```
 <br>
 
@@ -168,7 +176,7 @@ model_list = [DT(), KNN(n_neighbors=5, n_jobs=-1), RFC(), GBM(), SVC()]
 for model in model_list:
     score = cross_val_score(model, x_train, y_train, 
                             cv=k_fold, n_jobs=-1, scoring='accuracy').mean()
-    print(f"{str(clf)} Score : {np.round(score,2)}")
+    print(f"{str(model)} Score : {np.round(score,2)}")
 
 clf = RFC(n_jobs=-1, random_state=0)
 clf.fit(x_train, y_train)
