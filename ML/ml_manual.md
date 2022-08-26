@@ -37,7 +37,7 @@ sns.set()
 sns.set_style("whitegrid")
 # plt.rc("figure", figsize=(12,10))
 
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, mean_squared_log_error, mean_squared_error
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold, cross_val_predict
 
 from sklearn.tree import DecisionTreeClassifier as DT
@@ -69,13 +69,28 @@ print(train.isnull().sum(), test.isnull().sum())
 ```python
 df['col_name'].isna().sum()
 df['col_name'].value_counts()
+
+pd.set_option('display.max_rows', 10000) # Pandas Setting
 ```
 <br>
 - Datetime
 
 ```python
 pd.to_datetime(train['datetime']) # change data type : str to datetime
+
 data['year'] = data['datetime'].dt.year # month, day, hour, minute, second
+data["weekday"] = data["datetime"].dt.day_name()
+data["weekday_int"] = data["datetime"].dt.dayofweek
+```
+<br>
+- One Hot Encoding
+
+```python
+dummies = pd.get_dummies(train['cols_name'], prefix='cols_name')
+train = pd.concat([train, dummies], axis=1)
+# or
+
+(train['holiday'] == 0) & (train['workingday'] == 0) # True/False
 ```
 <br>
 
@@ -142,6 +157,8 @@ plt.xlabel('ylabel', fontsize=20, weight='bold')
 
 - Seaborn ('hue' function)
 ```python
+plt.figure(figsize=(10,8))
+
 sns.barplot(data = train, x = "year", y = 'count')
 sns.pointplot(data=train, x="hour", y="count")
 sns.scatterplot(data=train, x="temp", y="atemp", hue="windspeed", size="count", sizes=(0, 150))
@@ -160,7 +177,7 @@ def make_year_month(df):
 
 train['datetime'].apply(make_year_month)
 ```
-- transform / mapping / Drop / get_dummies + concat
+- transform / mapping / Drop 
 ```python
 dataset = [train, test]
 
@@ -175,9 +192,6 @@ for data in dataset:
     data[column5].map(column5_mapping)
 
     data.drop(columns=['cols_name1', 'cols_name2'], axis=1, inplace=True)
-
-dummies = pd.get_dummies(train['cols_name'], prefix='cols_name')
-train = pd.concat([train, dummies], axis=1)
 
 train[train.columns.difference(['casual', 'registered','count'])]
 ```
