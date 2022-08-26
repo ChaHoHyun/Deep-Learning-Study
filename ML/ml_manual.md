@@ -38,7 +38,7 @@ sns.set_style("whitegrid")
 # plt.rc("figure", figsize=(12,10))
 
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold, cross_val_predict
 
 from sklearn.tree import DecisionTreeClassifier as DT
 from sklearn.ensemble import RandomForestClassifier as RFC
@@ -71,11 +71,18 @@ df['col_name'].isna().sum()
 df['col_name'].value_counts()
 ```
 <br>
+- Datetime
+
+```python
+pd.to_datetime(train['datetime']) # change data type : str to datetime
+data['year'] = data['datetime'].dt.year # month, day, hour, minute, second
+```
+<br>
 
 #### Visualization
 <br>
 
-- heat map
+- Correlation heat map
 
 ```python
 cols = list(train.columns)
@@ -109,7 +116,7 @@ figure, ((ax1, ax2),(ax3,ax4)) = plt.subplots(nrows=2, ncols=2, figsize=(20,12))
 
 colors = sns.color_palette('hls',len(train['year'].unique()))
 
-train.groupby('year')['count'].mean().plot(kind='bar', ax=ax1)
+train.groupby('year')['count'].mean().plot(kind='bar', ax=ax1, color=colors)
 ax1.set_xlabel('year', fontsize=20, weight='bold')
 ax1.set_ylabel('Count', fontsize=20, weight='bold')
 ax1.set_xticklabels(train['year'].unique(),fontsize=14, rotation=0)
@@ -130,6 +137,16 @@ df.plot.scatter(x='temp', y='atemp', figsize=(10,8),s=10, colormap='hot')
 plt.xlim([0, 80]) # change x axis length of graph
 plt.xticks(rotation=0) # change xticks angle
 plt.xlabel('ylabel', fontsize=20, weight='bold')
+```
+<br>
+
+- Seaborn ('hue' function)
+```python
+sns.barplot(data = train, x = "year", y = 'count')
+sns.pointplot(data=train, x="hour", y="count")
+sns.scatterplot(data=train, x="temp", y="atemp", hue="windspeed", size="count", sizes=(0, 150))
+sns.countplot(data=train, x='weather')
+sns.distplot(train["windspeed"])
 ```
 <br>
 
@@ -184,6 +201,25 @@ clf.fit(x_train, y_train)
 test = test.drop(columns='PassengerId')
 
 result = clf.predict(x_test)
+```
+<br>
+
+- Regression Solution
+```python
+from sklearn.ensemble import RandomForestRegressor
+
+y_train_count_log = np.log(y_train_count + 1)
+
+k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
+
+model = RandomForestRegressor(n_estimators = 1000, n_jobs=-1)
+
+y_predict_count_log = cross_val_predict(model, x_train, y_train_count_log, cv=k_fold, n_jobs=-1)
+y_predict_count = np.exp(y_predict_count_log) - 1
+y_predict = np.sqrt(y_predict_count**2)
+score = mean_squared_log_error(y_train_count, y_predict)
+score = np.sqrt(score)
+print("Score= {0:.5f}".format(score))
 ```
 <br>
 
