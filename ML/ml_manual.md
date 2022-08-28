@@ -41,6 +41,7 @@ from sklearn.metrics import accuracy_score, mean_squared_log_error, mean_squared
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold, cross_val_predict
 
 from sklearn.tree import DecisionTreeClassifier as DT
+from sklearn.linear_model import LogisticRegression as LR
 from sklearn.ensemble import RandomForestClassifier as RFC
 from sklearn.neighbors import KNeighborsClassifier as KNN
 from sklearn.ensemble import GradientBoostingClassifier as GBM
@@ -69,6 +70,7 @@ print(train.isnull().sum(), test.isnull().sum())
 ```python
 df['col_name'].isna().sum()
 df['col_name'].value_counts()
+train.rename(columns={'Reached.on.Time_Y.N':'label'}, inplace=True)
 
 pd.set_option('display.max_rows', 10000) # Pandas Setting
 ```
@@ -202,7 +204,7 @@ train[train.columns.difference(['casual', 'registered','count'])]
 
 ```python
 k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
-model_list = [DT(), KNN(n_neighbors=5, n_jobs=-1), RFC(), GBM(), SVC()]
+model_list = [LR(), DT(), KNN(n_neighbors=5, n_jobs=-1), RFC(), GBM(), SVC()]
 
 for model in model_list:
     score = cross_val_score(model, x_train, y_train, 
@@ -218,7 +220,7 @@ result = clf.predict(x_test)
 ```
 <br>
 
-- Regression Solution
+- Regression Solution + Log Transform
 ```python
 from sklearn.ensemble import RandomForestRegressor
 
