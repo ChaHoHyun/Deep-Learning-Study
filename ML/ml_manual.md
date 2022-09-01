@@ -12,6 +12,7 @@
 3. [EDA & Viualization & Feature Engineering](#eda)<br>
     3-1. [[URL] Matplotlib Manual](https://wikidocs.net/159830)
 4. [ML Modeling](#ml-modeling)
+5. [Example](#ml-example)
 
 <br>
 
@@ -37,14 +38,15 @@ sns.set()
 sns.set_style("whitegrid")
 # plt.rc("figure", figsize=(12,10))
 
-from sklearn.metrics import accuracy_score, mean_squared_log_error, mean_squared_error
+from sklearn.metrics import accuracy_score, mean_squared_log_error, mean_squared_error, r2_score
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold, cross_val_predict
 
-from sklearn.tree import DecisionTreeClassifier as DT
-from sklearn.linear_model import LogisticRegression as LR
-from sklearn.ensemble import RandomForestClassifier as RFC
-from sklearn.neighbors import KNeighborsClassifier as KNN
-from sklearn.ensemble import GradientBoostingClassifier as GBM
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.svm import SVC
 ```
 <br>
@@ -77,6 +79,8 @@ pd.set_option('display.max_rows', 10000) # Pandas Setting
 <br>
 - Datetime
 
+<br>
+
 ```python
 pd.to_datetime(train['datetime']) # change data type : str to datetime
 
@@ -87,11 +91,15 @@ data["weekday_int"] = data["datetime"].dt.dayofweek
 <br>
 - One Hot Encoding
 
-```python
-dummies = pd.get_dummies(train['cols_name'], prefix='cols_name')
-train = pd.concat([train, dummies], axis=1)
-# or
+<br>
 
+```python
+X_all = pd.concat([X_train, X_test], axis=0)
+X_all[categorical].apply(lambda x: len(x.unique())) # know about each column's number of unique data
+X_categorical = pd.get_dummies(X_all[categorical], prefix='cols_name')
+X_all.drop(categorical, axis=1, inplace=True)
+X_all = pd.concat([X_all, X_categorical], axis=1)
+# or
 (train['holiday'] == 0) & (train['workingday'] == 0) # True/False
 ```
 <br>
@@ -199,6 +207,16 @@ train[train.columns.difference(['casual', 'registered','count'])]
 ```
 <br>
 
+- skew (if skew > 0.5 -> log transform)
+```python
+from scipy.stats import skew
+print(X_all[numerical_features].apply(skew).apply(abs).sort_values(ascending=False))
+
+X_all[numerical_features] = X_all[numerical_features].apply(lambda x: np.log1p(x) if abs(skew(x)) >0.5 else x)
+print(X_all[numerical_features].apply(skew).apply(abs).sort_values(ascending=False))
+```
+<br>
+
 ### ML Modeling
 <br>
 
@@ -235,11 +253,46 @@ y_predict_count = np.exp(y_predict_count_log) - 1
 y_predict = np.sqrt(y_predict_count**2)
 score = mean_squared_log_error(y_train_count, y_predict)
 score = np.sqrt(score)
+# score= cross_val_score(regre, X_train_scaled, y_train, cv=5, scoring='r2')
 print("Score= {0:.5f}".format(score))
 ```
 <br>
 
-### Final
+- Scaler
+```python
+scaler = StandardScaler() # MinMaxScaler()
+scaler.fit(X_train)
+
+X_train_scaled = pd.DataFrame(data=scaler.transform(X_train), columns = X_train.columns)
+X_test_scaled = pd.DataFrame(data=scaler.transform(X_test), columns = X_test.columns)
+```
+<br>
+
+- importance_feature
+```python
+model.fit(X, y)
+importances = model.feature_importances_
+std = np.std([tree.feature_importances_ for tree in model.estimators_],
+             axis=0)
+indices = np.argsort(importances)[::-1]
+
+# Print the feature ranking
+print("Feature ranking:")
+
+for f in range(X.shape[1]):
+    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+
+# Plot the impurity-based feature importances of the forest model
+plt.figure()
+plt.title("Feature importances")
+plt.bar(range(X.shape[1]), importances[indices],
+        color="r", yerr=std[indices], align="center")
+plt.xticks(range(X.shape[1]), indices)
+plt.xlim([-1, X.shape[1]])
+plt.show()
+```
+
+#### Final
 <br>
 
 ```python
@@ -252,3 +305,11 @@ submission.to_csv('submission.csv', index=False)
 submission = pd.read_csv("./submission.csv")
 submission
 ```
+
+### ML Example
+
+<br>
+
+- [Titanic](../ML/ml%20algorithm/kaggle_ML/titanic_mycode_0.765.ipynb)
+- [Bike Sharing Demand](../ML/ml%20algorithm/kaggle_ML/Bike_Sharing_Demand/bike_practice_0.38.ipynb)
+- [e-Commerce Shipping Data](../ML/ml%20algorithm/kaggle_ML/commerce_shipping_data/eCommerce_Shipping_Data.ipynb)
