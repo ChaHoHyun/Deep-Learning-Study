@@ -11,12 +11,16 @@
 
 ### Introduction
 
-- The Introduction AI `md` is [here](Introduction%20AI.md).
+- The Introduction about AI `md` is [here](Introduction%20AI.md).
 
 - Backgound Library's description python file is here.
   * [Pandas](./backgrounds/Lab01.Pandas.ipynb)
   * [Numpy](./backgrounds/Lab02.Numpy.ipynb)
   * [Matplotlib](./backgrounds/Lab03.Matplotlib.ipynb)
+<br>
 
-- The description of ML `md` is [here](./ML/ML%20description.md).
-   - [ML Modeling Manual](./ML/ml_manual.md)
+- The description of Machine Learing Algorithm `md` is [here](./ML/ML%20description.md)
+   - [ML Modeling Manual](./ML/ml_manual.md) 
+    <br>
+
+- The description of Deep Learing Algorithm `md` is [here](./DL/DL_description.md)
