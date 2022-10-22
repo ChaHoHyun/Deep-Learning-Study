@@ -10,23 +10,14 @@
 - [How to Calculate Hidden Layer's Backpropagation](https://bskyvision.com/718)
 - [About Activation Function](https://deepinsight.tistory.com/113)
 - [About Gradient Descent](https://angeloyeo.github.io/2020/08/16/gradient_descent.html)
+- [Funtional API vs Sequential API Wikidocs](https://wikidocs.net/38861)
 
 ### Index
 
-1. [Single / Hidden-Layer Perceptron](#1-perceptron)
-2. [KMeans](#2-kmeanskmm-k-means-clustering)
-3. [GMM](#3-gmm-gaussian-mixture-model)
-4. [PCA / LDA](#4-pca--lda)<br>
-   4-3. [Scaler](#4-3-scaler)
-5. [KNN](#5-knn-k-nearest-neighbors)<br>
-   5-1. [Cross Validation](#5-1-cross-validation)<br>
-   5-2. [Grid Search](#5-2-grid-search)
-7. [DecisionTreeClassifier](#7-decisiontreeclassifier)<br>
-   7-1. [Ensemble Learning](#7-1-ensemble-learning)<br>
-   7-2. [Bagging Classifier](#7-2-bagging-classifier)<br>
-   7-2. [1] [Random Forest](#7-2-1-random-forest)<br>
-   7-3. [Voting Classifier](#7-3-voting-classifier)<br>
-   7-4. [Boosting](#7-4-boosting)
+1. [Single / Hidden-Layer Perceptron](#1-perceptron)<br>
+   [1-4] [Functional API](#1-4-funtional-api)
+2. [CNN]()
+
 
 <br>
 
@@ -36,6 +27,12 @@
 #### [1-1] Single Neuron
 
 A single-layer neural network represents the most simple form of neural network, in which there is only one layer of input nodes that send weighted inputs to a subsequent layer of receiving nodes, or in some cases, one receiving node.
+<br>
+
+#### - Proof Reference
+<br>
+
+- MD file and Python code file is [[Github] URL hear](https://github.com/ChaHoHyun/Neural_Net_Study/blob/main/Summary_study_Neural_Net.md)
 
 <br>
 <center><img src="https://www.lgcns.com/wp-content/uploads/2021/11/99C360355E86DBB514.png" width="50%" height="100%"></center>
@@ -47,7 +44,9 @@ A single-layer neural network represents the most simple form of neural network,
 <center>[Single Hidden Layer Neural Network]</center>
 <br>
 
-##### Limitation
+- [Example Code](./dl_algorithm/perceptron.ipynb)
+
+- Limitation
 <br>
 
 <center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOgA-qClvpVbeTSSPZm2y64vSdvDBtfvzgLw&usqp=CAU" width="50%" height="100%"></center>
@@ -63,6 +62,7 @@ By adding hidden layer composed of several perceptrons to an artificial neural n
 <br>
 
 - Activation Function : A function that converts the sum of input signals into output signals
+   - Softmax : 
 
 <center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FvnQPJ%2FbtqEd7HdyUh%2FETBAZp5B17K8KiwAleT3HK%2Fimg.png" width="50%" height="100%"></center>
 <center>[Sort of Activation Functions]</center>
@@ -94,7 +94,13 @@ Why? Because of **Back-Propagation (Gradient Vanishing)**. Through backpropagati
 
       1. Terms<br>
 
-         - Batch Size : How many data do you have at a time when updating<br>
+         - Batch Size : The number of data to learn at once when updating<br>
+         - Epoch : The number of times the entire training dataset has passed through the neural network<br>
+         - Iteration : Number of times updated within 1 epoch
+         
+         <br>
+         <center><img src="https://mblogthumb-phinf.pstatic.net/MjAxOTAxMjNfMjU4/MDAxNTQ4MjM1Nzg3NTA2.UtvnGsckZhLHOPPOBWH841IWsZFzNcgwZvYKi2nxImEg.CdtqIxOjWeBo4eNBD2pXu5uwYGa3ZVUr8WZvtldArtYg.PNG.qbxlvnf11/20190123_182720.png?type=w800" width="50%" height="100%"></center>
+         <center>[Batch Size vs Epoch vs Iteration]</center>
 
       2. Optimizer
          - GD(gradient descent) : It's a method of calculating using **all the data**
@@ -107,17 +113,68 @@ Why? Because of **Back-Propagation (Gradient Vanishing)**. Through backpropagati
          - **Adam(Adaptive Moment Estimation)** : Popular optimizer
 
          <center><img src="http://i.imgur.com/2dKCQHh.gif?1" width="50%" height="100%"><img src="http://i.imgur.com/pD0hWu5.gif?1" width="47.6%" height="100%"></center>
+<br>
+
+#### [1-3] Deep Neural Net
+<br>
+
+1. Concept
+- Single Perceptron : Classification / Regression like Machine Learing
+- Multi-Layer Perceptron : `Single Perceptrion` + Non-linearity(XOR) + Back-Propagation(Increasing Accuracy)
+- Deep Neural Net : `Multi-Layer Perceptron` + More deeper network(Increasing Accuracy) + Relu & Drop-Out(Prevent Overfitting)<br>
+
+2. [Example code + Funtional API](./dl_algorithm/Multi_Layer_Perceptron.ipynb)
 
 <br>
 
-#### [1-3] Proof Reference
-
-MD file and Python code file is [[Github] hear](https://github.com/ChaHoHyun/Neural_Net_Study/blob/main/Summary_study_Neural_Net.md)
-
+#### [1-4] Funtional API
 <br>
 
+1. Sequetial API Example
+```python
+model = models.Sequential([
+    layers.Dense(units = 10, activation='sigmoid', input_shape = x_train[0].shape),
+    layers.Dense(units = 6, activation='sigmoid'),
+    layers.Dense(units = 1, activation='linear')
+])
+```
+2. Funtional API Example
+```python
+inputs = Input(x_train[0].shape)
+x1 = layers.Dense(units = 10, activation = 'sigmoid')(inputs)
+x2 = layers.Dense(units = 6, activation = 'sigmoid')(x1)
+outputs = layers.Dense(1, activation = 'linear')(x2)
+```
+3. Why we use `Funtional API`?
+- Sequential APIs have limitations in creating **complex models**, such as sharing multiple layers or using different types of inputs and outputs. Now let's see Functional APIs (API) code, a way to create more complex models.
 
+```python
+inputs = Input(x_train[0, :4].shape)
+x1 = layers.Dense(8, activation='sigmoid')(inputs)
+x1 = layers.Dense(8, activation='sigmoid')(x1)
+x1 = layers.Dense(4, activation='sigmoid')(x1)
 
+x2 = layers.Dense(8, activation='sigmoid')(inputs)
+x2 = layers.Dense(8, activation='sigmoid')(x2)
+x2 = layers.Dense(4, activation='sigmoid')(x2)
+
+x = layers.concatenate([x1,x2])
+x = layers.Dense(4, activation='sigmoid')(x)
+outputs = layers.Dense(3, activation = 'softmax')(x)
+
+model = Model(inputs = inputs, outputs = outputs)
+```
+<center>
+<img src="./dl_algorithm/model_img/Funtional_model.png" width="45%" height="50%"> <img src="./dl_algorithm/model_img/Sequential_model.png" width="51.8%" height="50%"><br>
+[Funtional API vs Sequential API]
+</center>
+<br>
+
+#### [1-5] [Example code](./dl_algorithm/Multi_Layer_Perceptron.ipynb)
+<br>
+- Multi-Layer Perceptron + Functional API
+
+<br>
 
 $y_{i} = \beta_{0} + \beta_{1}x_{i}+\epsilon_{i}$<br>
 $\epsilon_{i} = y_{i}-\beta_{0} - \beta_{1}x_{i}$
