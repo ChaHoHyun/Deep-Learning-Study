@@ -5,43 +5,54 @@
 
 ### Reference
 
-- [Github - Chahohyun [Neural Net Study]](https://github.com/ChaHoHyun/Neural_Net_Study)
-- [Github - Sungwookle [CNN]](http://sungwookle.site/research/2106211010/)
+- [[Github] Chahohyun [Neural Net Study]](https://github.com/ChaHoHyun/Neural_Net_Study)
+- [[Github]Sungwookle [CNN]](https://github.com/SungwookLE/ReND_Car_TensorLab_with_NeuralNet/blob/master/2.Convolutional_Neural_with_LeNet_Study/Study_ConvNet.md)
 - [How to Calculate Hidden Layer's Backpropagation](https://bskyvision.com/718)
 - [About Activation Function](https://deepinsight.tistory.com/113)
 - [About Gradient Descent](https://angeloyeo.github.io/2020/08/16/gradient_descent.html)
 - [Funtional API vs Sequential API Wikidocs](https://wikidocs.net/38861)
+- [[URL] What is CNN](https://yjjo.tistory.com/8)
+- [[Youtube] What is Convolution](https://www.youtube.com/watch?v=9Hk-RAIzOaw&t=227s)
 
 ### Index
 
 1. [Single / Hidden-Layer Perceptron](#1-perceptron)<br>
    [1-4] [Functional API](#1-4-funtional-api)
-2. [CNN]()
+2. [CNN](#2-convolution-neural-network)
+
+<br>
 
 
 <br>
+<center><img src="https://pubs.acs.org/cms/10.1021/acs.analchem.0c04671/asset/images/medium/ac0c04671_0001.gif" width="70%" height="100%"></center>
+<center>[The evolution of deep learning: from perceptron to CNN]</center>
 
 ### 1. Perceptron
 <br>
 
-#### [1-1] Single Neuron
+#### [1-1] Single Neuron (ANN)
 
 A single-layer neural network represents the most simple form of neural network, in which there is only one layer of input nodes that send weighted inputs to a subsequent layer of receiving nodes, or in some cases, one receiving node.
+
+- ANN (Artificial Neural Network) : Machine learning algorithms imitating human neural network principles and structures (**Only Feed Forward**)
+   - Limitation<br>
+      1. It is difficult to find the optimal value of the parameter in the learning process.
+      2. Overfitting
+      3. The learning time is too slow.
 <br>
 
-#### - Proof Reference
+#### Proof Reference
 <br>
 
 - MD file and Python code file is [[Github] URL hear](https://github.com/ChaHoHyun/Neural_Net_Study/blob/main/Summary_study_Neural_Net.md)
 
 <br>
 <center><img src="https://www.lgcns.com/wp-content/uploads/2021/11/99C360355E86DBB514.png" width="50%" height="100%"></center>
-
 <center>[Human Brain vs Deep Learning]</center>
 <br>
-
+<center><img src="https://blog.kakaocdn.net/dn/ADQNA/btqNpHmaVSK/lRgSJKYPKRgkOtAQnBafuK/img.gif" width="50%" height="100%"></center>
 <center><img src="https://gowrishankar.info/blog/do-you-know-we-can-approximate-any-continuous-function-with-a-single-hidden-layer-neural-network-a-visual-guide/single_neuron.png" width="50%" height="100%"></center>
-<center>[Single Hidden Layer Neural Network]</center>
+<center>[Single Neuron]</center>
 <br>
 
 - [Example Code](./dl_algorithm/perceptron.ipynb)
@@ -176,6 +187,43 @@ model = Model(inputs = inputs, outputs = outputs)
 
 <br>
 
+### 2. Convolution Neural Network
+<br>
+
+#### [2-1] Concept
+
+- It's one of the deep learning algorithm that imitates the human optic nerve.
+- In particular, it maintains patial information of images by using convolution filter, dramatically reduces the amount of computation compared to fully connected neural networks(**DNN**), and shows good performance in image classification
+<br>
+
+#### [2-2] Basic knowledge
+
+1. Image Data 
+   - Black and white : Horizontal x Vertical x Black value
+   - Color : Horizontal x Vertical x RGB value
+
+<br>
+
+<center>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fsm9GY%2Fbtqwoz5GP3S%2FrzMGckssOEeqbSvs7f0sd0%2Fimg.png" width="45%" height="50%"><br>
+[About Image Data]
+</center>
+<br>
+
+2. Convolution
+
+   1. definition : A mathematical funtion that multiplies one function by the value of the inversion of another function, and then integrates it over the interval to obtain a new function   
+   $(f∗g)(t)= \int_{∞}^{∞}f(τ)g(t−τ)dτ$
+
+   2. Field : Statistics, Computer vision, Natural language processing, Image processing, Signal processing, etc
+
+   3. Mathematical meaning : It means **extracting or filtering information** by locally amplifying or decreasing the signal using a kernel
+
+   4. Example
+
+   <center><img src="https://velog.velcdn.com/images%2Fminchoul2%2Fpost%2F2011a19b-679e-4792-b9df-2444b6dd4606%2FConvolution_of_spiky_function_with_box2.gif" width="50%" height="50%"><center><img src="https://velog.velcdn.com/images%2Fminchoul2%2Fpost%2F203c3dc5-8a4e-428c-964b-6f1a25be1b4e%2FConvolution_of_box_signal_with_itself2.gif" width="50%" height="50%"><br>[Convolution Processing]</center>
+
+
 $y_{i} = \beta_{0} + \beta_{1}x_{i}+\epsilon_{i}$<br>
 $\epsilon_{i} = y_{i}-\beta_{0} - \beta_{1}x_{i}$
  > LSE → $MinS^2 = Min \sum \limits_{i=1}^{n} \epsilon_{i}^2 = Min \sum \limits_{i=1}^{n} (y_{i}-\beta_{0} - \beta_{1}x_{i})^2$
@@ -188,3 +236,17 @@ $\epsilon_{i} = y_{i}-\beta_{0} - \beta_{1}x_{i}$
        
        <br>
     2) $f''(x) > 0$ => $Satisfied$
+
+
+
+
+https://yjjo.tistory.com/8
+
+https://rubber-tree.tistory.com/entry/%EB%94%A5%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-CNN-Convolutional-Neural-Network-%EC%84%A4%EB%AA%85
+
+https://supermemi.tistory.com/104
+
+https://www.youtube.com/watch?v=9Hk-RAIzOaw&t=227s
+
+https://github.com/SungwookLE/ReND_Car_TensorLab_with_NeuralNet/blob/master/2.Convolutional_Neural_with_LeNet_Study/Study_ConvNet.md
+
