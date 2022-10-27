@@ -13,6 +13,8 @@
 - [Funtional API vs Sequential API Wikidocs](https://wikidocs.net/38861)
 - [[URL] What is CNN](https://yjjo.tistory.com/8)
 - [[Youtube] What is Convolution](https://www.youtube.com/watch?v=9Hk-RAIzOaw&list=RDCMUCUR_LsXk7IYyueSnXcNextQ&index=1)
+- [CNN Project - Image Classification](https://inhovation97.tistory.com/33)
+   - [Web Crawling by Selenium](https://velog.io/@jungeun-dev/Python-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81Selenium-%EA%B5%AC%EA%B8%80-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%88%98%EC%A7%91)
 
 ### Index
 
@@ -348,6 +350,9 @@ https://inhovation97.tistory.com/37
 https://colab.research.google.com/github/inhovation97/personal_project/blob/main/pytorch/pytorch_project_Image_preprocessing.ipynb
 
 https://velog.io/@jungeun-dev/Python-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81Selenium-%EA%B5%AC%EA%B8%80-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%88%98%EC%A7%91
+
+https://velog.io/@jaehyeong/CNN-%EB%AA%A8%EB%8D%B8%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%9E%90%EB%8F%99%EC%B0%A8-%EC%82%AC%EA%B3%A0-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B6%84%EB%A5%98
+
 
 
 
