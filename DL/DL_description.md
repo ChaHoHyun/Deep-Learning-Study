@@ -343,13 +343,13 @@ $\epsilon_{i} = y_{i}-\beta_{0} - \beta_{1}x_{i}$
     2) $f''(x) > 0$ => $Satisfied$
 
 
-
-
-https://inhovation97.tistory.com/37
-
-https://colab.research.google.com/github/inhovation97/personal_project/blob/main/pytorch/pytorch_project_Image_preprocessing.ipynb
-
-https://velog.io/@jungeun-dev/Python-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81Selenium-%EA%B5%AC%EA%B8%80-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%88%98%EC%A7%91
+https://inhovation97.tistory.com/39?category=920763
 
 https://velog.io/@jaehyeong/CNN-%EB%AA%A8%EB%8D%B8%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%9E%90%EB%8F%99%EC%B0%A8-%EC%82%AC%EA%B3%A0-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B6%84%EB%A5%98
+
+https://buomsoo-kim.github.io/keras/2018/05/02/Easy-deep-learning-with-Keras-8.md/
+
+https://kdeon.tistory.com/44
+
+https://eremo2002.tistory.com/76
 
