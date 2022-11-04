@@ -15,12 +15,15 @@
 - [[Youtube] What is Convolution](https://www.youtube.com/watch?v=9Hk-RAIzOaw&list=RDCMUCUR_LsXk7IYyueSnXcNextQ&index=1)
 - [CNN Project - Image Classification](https://inhovation97.tistory.com/33)
    - [Web Crawling by Selenium](https://velog.io/@jungeun-dev/Python-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81Selenium-%EA%B5%AC%EA%B8%80-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%88%98%EC%A7%91)
+   - [★ keras CNN Example](https://codetorial.net/tensorflow/mnist_classification.html)
+- [[URL] What is RNN?](https://codetorial.net/tensorflow/mnist_classification.html)
 
 ### Index
 
 1. [Single / Hidden-Layer Perceptron](#1-perceptron)<br>
    [1-4] [Functional API](#1-4-funtional-api)
 2. [CNN](#2-convolution-neural-network)
+3. [RNN](#3-reccurent-neural-network)
 
 <br>
 
@@ -325,7 +328,146 @@ model = Model(inputs = inputs, outputs = outputs)
          - $H_2=(H1−F)/S+1$
          - $D_2=D_1$
 
+<br>
 
+### 3. Reccurent Neural Network
+
+<br>
+
+#### [3-1] Concept
+
+- RNN is a `sequence model` that processes inputs and outputs in sequence units
+   - Sequence Data : Voice, Natural Language, Stock price
+
+<br>
+
+#### [3-2] Basic knowledge
+
+1. Time Series Data 
+   - Black and white : Horizontal x Vertical x Black value
+   - Color : Horizontal x Vertical x RGB value
+
+<br>
+
+<center>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fsm9GY%2Fbtqwoz5GP3S%2FrzMGckssOEeqbSvs7f0sd0%2Fimg.png" width="45%" height="50%"><br>
+[About Image Data]
+</center>
+<br>
+
+2. Convolution
+
+   - definition : A mathematical funtion that multiplies one function by the value of the inversion of another function, and then integrates it over the interval to obtain a new function
+   $(f∗g)(t)= \int_{∞}^{∞}f(τ)g(t−τ)dτ$
+
+   - Field : Statistics, Computer vision, Natural language processing, Image processing, Signal processing, etc
+
+   - Mathematical meaning : It means **extracting or filtering information** by locally amplifying or decreasing the signal using a kernel
+
+   - Example ([Youtube Description](https://www.youtube.com/watch?v=9Hk-RAIzOaw&list=RDCMUCUR_LsXk7IYyueSnXcNextQ&index=1))
+
+   <center><img src="https://velog.velcdn.com/images%2Fminchoul2%2Fpost%2F2011a19b-679e-4792-b9df-2444b6dd4606%2FConvolution_of_spiky_function_with_box2.gif" width="50%" height="50%"><center><img src="https://velog.velcdn.com/images%2Fminchoul2%2Fpost%2F203c3dc5-8a4e-428c-964b-6f1a25be1b4e%2FConvolution_of_box_signal_with_itself2.gif" width="50%" height="50%"><br>[Convolution Processing]</center>
+<br>
+
+3. Convolution Layer
+- Use *Sliding window* method
+- If the 4x4 image is flattened, *16 weights* must be learned for each characteristic. However, with the convolutional layers, the weights to learn have been reduced to *4 weights*, and the number of computational operations has been drastically reduced.
+- Python code about conv filter is [hear](./dl_algorithm/Conv_filter.ipynb)
+<br>
+<center>
+<img src="https://wikidocs.net/images/page/64066/conv15.png" width="45%" height="50%"><br>
+[Convolution Layer]
+</center>
+<br>
+<center><img src="https://camo.githubusercontent.com/1b19915bb05be7438cf5a511bad3ffe2df5942564eafb080bf0a710d228c259a/68747470733a2f2f6d626c6f677468756d622d7068696e662e707374617469632e6e65742f32303136303930395f3236332f636a683232365f31343733343136363032333033337a516b305f504e472f666967322e706e673f747970653d7732" width="50%" height="50%"><br>
+[Types of Convolution Layer(filter)]</center>
+
+<br>
+
+#### [2-3] Structure of CNN
+<br>
+
+<center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FnuUCk%2FbtqwsGRw5s4%2FxrKNIAY5HXx8d0tHK3z9Mk%2Fimg.png" width="50%" height="50%"><br>
+[DNN(Fully Connected Layer) vs CNN]</center>
+<br>
+<center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FyhydK%2FbtqwmtFGpnh%2FgEfJAxzaEmud4beRKvh0gK%2Fimg.png" width="50%" height="50%"><br>
+[Convolution Layer with bias]</center>
+<br>
+<center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbAFutP%2FbtqRAkU1Rq2%2FxZixvxgwJFONnszoh7up61%2Fimg.png" width="80%" height="50%"><br>
+[Structure of Convolution Neural Network]</center>
+<br>
+
+- Hyper Parameter<br>
+   1. Number of Convolution filter : It is recommended to balance the system while keeping the computation time/volume at each layer relatively constant.
+   2. Padding status : It may not reduce the size of the input image.
+   <br>
+   <center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FeJSFzX%2Fbtq9mnlb1Rr%2Fq8kgNEQuYm9QyxWh1PvUBk%2Fimg.png" width="60%" height="50%"><br>
+   [Figure of Padding]</center>
+   <br>
+
+   3. filter size : Most **CNN** use 3x3 sizes over-lapping.
+   4. Stride : Parameters that control the interval of movement of the filter 
+   <br>
+   <center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FIYoOx%2Fbtq9gA0P3q7%2FQFst03O1TW8exBXtzWbYv1%2Fimg.png" width="60%" height="50%"><br>
+   [Figure of Stride]</center>
+   <br>
+   5. Pooling layer type
+   
+   <br>
+
+- Pooling Layer : The role of moderately reducing size and emphasizing specific features (Featuring)
+   - Max Pooling (**Main** → [thesis] Boureau et al. ICML’10 for theoretical analysis )
+   <br>
+   <center><img src="https://blog.kakaocdn.net/dn/CAchP/btqwrS4GWfC/skXqkaRNx3u64zD5vJMXi1/img.gif" width="40%" height="50%"><br>
+   [Figure of Stride]</center>
+   <br>
+
+   - Average Pooling
+   <br>
+   <center><img src="https://blog.kakaocdn.net/dn/p8PUR/btqwrAQI35e/cRxDmX83i8bvhh0WYafuX1/img.gif" width="40%" height="50%"><br>
+   [Figure of Stride]</center>
+   <br>
+
+   - Min Pooling
+
+<br>
+
+- Flattening Layer : After extracting the feature through *Convolutional Layer and Pooling layer*, it is a step to connect the extracted characteristics to the Output layer for learning Network. Therefore, after the `flattening layer`, it is the same as a regular neural network model.
+<br>
+<center><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcvouDZ%2FbtqwmuCU4dY%2FlmDRgbtnqqaiSOXrNyZLX1%2Fimg.png" width="30%" height="30%"><br>
+[Figure of Flattening]</center>
+<br>
+
+
+- Summary
+<br>
+
+   1. Convolution
+      - Input Data : $W_1×H_1×D_1$ ($W_1$: input width, $H_1$: input height, $D_1$: input channel or Depth)
+      - Hyper Parameters
+         - Number of filter : $K$
+         - filter size : $F$
+         - stride : $S$
+         - padding : $P$
+      - Output Data
+         - $W_2=(W_1−F+2P)/S+1$
+         - $H_2=(H1−F+2P)/S+1$
+         - $D_2=K$ ($D_2$: Number of activation map)
+      - Number of weight : $[F^2×D_1+D_1]×K$<br>
+<br>
+   2. Pooling
+      - Input Data : $W_1×H_1×D_1$ ($W_1$: input width, $H_1$: input height, $D_1$: input channel or Depth)
+      - Hyper Parameters
+         - Number of filter : $K$
+         - filter size : $F$
+         - stride : $S$
+         - padding : $P$
+      - Output Data
+         - $W_2=(W_1−F)/S+1$
+         - $H_2=(H1−F)/S+1$
+         - $D_2=D_1$
+
+<br>
 
 <br><br><br><br><br><br>
 
